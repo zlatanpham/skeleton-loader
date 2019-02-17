@@ -1,7 +1,9 @@
-import ExampleComponent from './'
+import { bindProperty } from './Skeleton';
 
-describe('ExampleComponent', () => {
-  it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
-  })
-})
+describe('test bindProperty', () => {
+  it('valid output', () => {
+    expect(bindProperty('width', ['100%', '50%'])).toBe(
+      'width: 100%;@media (min-width: 576px){width: 50%;}',
+    );
+  });
+});

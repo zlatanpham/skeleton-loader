@@ -13,7 +13,7 @@ export const flash = keyframes`
   }
 `;
 
-const Container = styled.div<SkeletonProps>`
+const Container = styled.div<{ css: SkeletonProps }>`
   background-color: red;
 
   background-color: ${defaultBaseColor};
@@ -25,16 +25,15 @@ const Container = styled.div<SkeletonProps>`
   );
   background-size: 200px 100%;
   background-repeat: no-repeat;
-  border-radius: 4px;
   display: inline-block;
   line-height: 1;
-  ${props => bindProperty('width', props.width)};
-  ${props => bindProperty('height', props.height)};
-  ${props => bindProperty('radius', props.radius)};
+  ${props => bindProperty('width', props.css.width)};
+  ${props => bindProperty('height', props.css.height)};
+  ${props => bindProperty('border-radius', props.css.radius)};
   animation: ${flash} 1.5s ease-in-out infinite;
 `;
 
-type CSSProperty = string | [string, string, string, string];
+type CSSProperty = string | string[];
 
 export interface SkeletonProps {
   width: CSSProperty;
@@ -44,17 +43,20 @@ export interface SkeletonProps {
 
 const screens = {
   sm: '@media (min-width: 576px)',
-  md: '@media (min-width: 768)',
+  md: '@media (min-width: 768px)',
   lg: '@media (min-width: 992px)',
   xl: '@media (min-width: 1200px)',
 };
 
-const bindProperty = (name: string, value: CSSProperty): string => {
+export const bindProperty = (name: string, value: CSSProperty): string => {
   if (Array.isArray(value)) {
     let response: string[] = [];
     let count = 0;
+    response[count++] = `${name}: ${value[0]};`;
     Object.keys(screens).forEach((key, index) => {
-      response[count++] = `${screen[key]}{${name}:${value[index]};}`;
+      if (typeof value[index + 1] === 'string') {
+        response[count++] = `${screens[key]}{${name}: ${value[index + 1]};}`;
+      }
     });
     return response.join('');
   } else {
@@ -65,10 +67,10 @@ const bindProperty = (name: string, value: CSSProperty): string => {
 export class Skeleton extends React.Component<SkeletonProps> {
   static defaultProps: SkeletonProps = {
     width: '100%',
-    radius: '8px',
+    radius: '0px',
     height: '20px',
   };
   render() {
-    return <Container {...this.props}>Hello</Container>;
+    return <Container css={this.props}>Hello</Container>;
   }
 }
