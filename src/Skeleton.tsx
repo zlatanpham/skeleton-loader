@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, CSSObject } from 'styled-components';
 
 export const defaultBaseColor = '#eee';
 export const defaultHighlightColor = '#f5f5f5';
@@ -13,9 +13,7 @@ export const flash = keyframes`
   }
 `;
 
-const Container = styled.div<{ css: SkeletonProps }>`
-  background-color: red;
-
+const Container = styled.div<{ css: DefaultSkeletonProps }>`
   background-color: ${defaultBaseColor};
   background-image: linear-gradient(
     90deg,
@@ -31,14 +29,23 @@ const Container = styled.div<{ css: SkeletonProps }>`
   ${props => bindProperty('height', props.css.height)};
   ${props => bindProperty('border-radius', props.css.radius)};
   animation: ${flash} 1.5s ease-in-out infinite;
+  ${props => props.css.customStyles || ''}
 `;
 
 type CSSProperty = string | string[];
 
 export interface SkeletonProps {
+  width?: CSSProperty;
+  height?: CSSProperty;
+  radius?: CSSProperty;
+  customStyles?: CSSObject | TemplateStringsArray;
+}
+
+export interface DefaultSkeletonProps {
   width: CSSProperty;
   height: CSSProperty;
   radius: CSSProperty;
+  customStyles?: CSSObject | TemplateStringsArray;
 }
 
 const screens = {
@@ -65,12 +72,13 @@ export const bindProperty = (name: string, value: CSSProperty): string => {
 };
 
 export class Skeleton extends React.Component<SkeletonProps> {
-  static defaultProps: SkeletonProps = {
+  static defaultProps: DefaultSkeletonProps = {
     width: '100%',
     radius: '0px',
     height: '20px',
   };
+
   render() {
-    return <Container css={this.props}>Hello</Container>;
+    return <Container css={this.props as DefaultSkeletonProps} />;
   }
 }

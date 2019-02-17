@@ -7,7 +7,7 @@ export default class App extends Component {
     return (
       <div>
         <Skeleton />
-        <Skeleton width={['100%', '50%']} height={'30px'} />
+        <Skeleton width={'60px'} height={'60px'} radius={'60px'} />
       </div>
     );
   }
