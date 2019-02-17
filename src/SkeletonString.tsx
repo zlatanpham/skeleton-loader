@@ -1,5 +1,9 @@
 import * as React from 'react';
 import styled, { keyframes } from 'styled-components';
+import {
+  SkeletonThemeConsumer,
+  SkeletonThemeProps,
+} from './SkeletonThemeProvider';
 
 export const defaultBaseColor = '#eee';
 export const defaultHighlightColor = '#f5f5f5';
@@ -13,13 +17,13 @@ export const flash = keyframes`
   }
 `;
 
-const TextWrapper = styled.span`
-  background-color: ${defaultBaseColor};
+const TextWrapper = styled.span<SkeletonThemeProps>`
+  background-color: ${props => props.baseColor || defaultBaseColor};
   background-image: linear-gradient(
     90deg,
-    ${defaultBaseColor},
-    ${defaultHighlightColor},
-    ${defaultBaseColor}
+    ${props => props.baseColor || defaultBaseColor},
+    ${props => props.hightlightColor || defaultHighlightColor},
+    ${props => props.baseColor || defaultBaseColor}
   );
   background-size: 200px 100%;
   background-repeat: no-repeat;
@@ -34,9 +38,9 @@ const TextWrapper = styled.span`
 export class SkeletonString extends React.Component {
   render() {
     return (
-      <div>
-        <TextWrapper>{this.props.children}</TextWrapper>
-      </div>
+      <SkeletonThemeConsumer>
+        {props => <TextWrapper {...props}>{this.props.children}</TextWrapper>}
+      </SkeletonThemeConsumer>
     );
   }
 }
