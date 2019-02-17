@@ -13,7 +13,7 @@ export const flash = keyframes`
   }
 `;
 
-const Container = styled.div`
+const Container = styled.div<SkeletonProps>`
   background-color: red;
 
   background-color: ${defaultBaseColor};
@@ -28,14 +28,47 @@ const Container = styled.div`
   border-radius: 4px;
   display: inline-block;
   line-height: 1;
-  width: 100%;
+  ${props => bindProperty('width', props.width)};
+  ${props => bindProperty('height', props.height)};
+  ${props => bindProperty('radius', props.radius)};
   animation: ${flash} 1.5s ease-in-out infinite;
 `;
 
-export interface SkeletonProps {}
+type CSSProperty = string | [string, string, string, string];
+
+export interface SkeletonProps {
+  width: CSSProperty;
+  height: CSSProperty;
+  radius: CSSProperty;
+}
+
+const screens = {
+  sm: '@media (min-width: 576px)',
+  md: '@media (min-width: 768)',
+  lg: '@media (min-width: 992px)',
+  xl: '@media (min-width: 1200px)',
+};
+
+const bindProperty = (name: string, value: CSSProperty): string => {
+  if (Array.isArray(value)) {
+    let response: string[] = [];
+    let count = 0;
+    Object.keys(screens).forEach((key, index) => {
+      response[count++] = `${screen[key]}{${name}:${value[index]};}`;
+    });
+    return response.join('');
+  } else {
+    return `${name}: ${value};`;
+  }
+};
 
 export class Skeleton extends React.Component<SkeletonProps> {
+  static defaultProps: SkeletonProps = {
+    width: '100%',
+    radius: '8px',
+    height: '20px',
+  };
   render() {
-    return <Container>Hello</Container>;
+    return <Container {...this.props}>Hello</Container>;
   }
 }
