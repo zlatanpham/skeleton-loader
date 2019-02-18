@@ -20,23 +20,21 @@ interface DefaultProps {
 
 export const getStyles = (
   props: DefaultProps & { theme: SkeletonThemeProps },
-) => {
-  return css`
-    background-color: ${props.theme.baseColor || props.baseColor};
-    background-image: linear-gradient(
-      90deg,
-      ${props.theme.baseColor || props.baseColor},
-      ${props.theme.hightlightColor || props.highlightColor},
-      ${props.theme.baseColor || props.baseColor}
-    );
-    background-size: 200px 100%;
-    background-repeat: no-repeat;
-    display: inline-block;
-    animation: ${flash} 1.5s ease-in-out infinite;
+) => css`
+  background-color: ${props.theme.baseColor || props.baseColor};
+  background-image: linear-gradient(
+    90deg,
+    ${props.theme.baseColor || props.baseColor},
+    ${props.theme.hightlightColor || props.highlightColor},
+    ${props.theme.baseColor || props.baseColor}
+  );
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  animation: ${flash} 1.5s ease-in-out infinite;
+  color: transparent !important;
+  > * {
     color: transparent !important;
-    > * {
-      color: transparent !important;
-    }
-    ${props.customeStyle || ''}
-  `;
-};
+  }
+  ${props.customeStyle || ''}
+`;

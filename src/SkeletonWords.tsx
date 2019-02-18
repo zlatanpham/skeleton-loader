@@ -1,30 +1,15 @@
 import * as React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
+import {
+  SkeletonThemeConsumer,
+  SkeletonThemeProps,
+} from './SkeletonThemeProvider';
+import { defaultBaseColor, defaultHighlightColor, getStyles } from './shared';
 
-export const defaultBaseColor = '#eee';
-export const defaultHighlightColor = '#f5f5f5';
-
-export const flash = keyframes`
-  0% {
-    background-position: -200px 0;
-  }
-  100% {
-    background-position: calc(200px + 100%) 0;
-  }
-`;
-
-const Span = styled.span`
-  background-color: ${defaultBaseColor};
-  background-image: linear-gradient(
-    90deg,
-    ${defaultBaseColor},
-    ${defaultHighlightColor},
-    ${defaultBaseColor}
-  );
-  animation: ${flash} 1.5s ease-in-out infinite;
-  background-size: 200px 100%;
-  background-repeat: no-repeat;
-  display: inline-block;
+const Span = styled.span<
+  SkeletonWordsDefaultProps & { theme: SkeletonThemeProps }
+>`
+  ${props => getStyles(props)}
   margin: 6px 15px 6px 0px;
   color: transparent !important;
   padding: 0 15px;
@@ -36,11 +21,25 @@ const Container = styled('div')({
   fontSize: '9px',
 });
 
-interface LoaderPlaceholderProps {
+interface SkeletonWordsProps {
   num: number;
+  baseColor?: string;
+  highlightColor?: string;
 }
 
-export class SkeletonWords extends React.Component<LoaderPlaceholderProps> {
+interface SkeletonWordsDefaultProps {
+  num: number;
+  baseColor: string;
+  highlightColor: string;
+}
+
+export class SkeletonWords extends React.Component<SkeletonWordsProps> {
+  static defaultProps: SkeletonWordsDefaultProps = {
+    num: 3,
+    baseColor: defaultBaseColor,
+    highlightColor: defaultHighlightColor,
+  };
+
   data = Array.from({ length: this.props.num }, () =>
     'a'.repeat(Math.random() * 13 + 1),
   );
@@ -51,11 +50,21 @@ export class SkeletonWords extends React.Component<LoaderPlaceholderProps> {
 
   render() {
     return (
-      <Container>
-        {this.data.slice(0, this.props.num).map((text, index) => (
-          <Span key={index}>{text}</Span>
-        ))}
-      </Container>
+      <SkeletonThemeConsumer>
+        {theme => (
+          <Container>
+            {this.data.slice(0, this.props.num).map((text, index) => (
+              <Span
+                key={index}
+                theme={theme}
+                {...this.props as SkeletonWordsDefaultProps}
+              >
+                {text}
+              </Span>
+            ))}
+          </Container>
+        )}
+      </SkeletonThemeConsumer>
     );
   }
 }
