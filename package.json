@@ -1,8 +1,15 @@
 {
-  "name": "skeleton-loader",
-  "version": "1.0.0",
-  "description": "",
-  "author": "zlatanpham",
+  "name": "@uxui/skeleton-loader",
+  "version": "0.0.1",
+  "description": "React component helps ease the process of creating skeleton screens",
+  "author": "zlatanpham <https://github.com/zlatanpham>",
+  "keywords": [
+    "react",
+    "loader",
+    "loading",
+    "progress",
+    "skeleton screen"
+  ],
   "license": "MIT",
   "repository": "zlatanpham/skeleton-loader",
   "main": "dist/index.js",
