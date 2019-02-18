@@ -37,5 +37,6 @@ export const getStyles = (
     > * {
       color: transparent !important;
     }
+    ${props.customeStyle || ''}
   `;
 };
