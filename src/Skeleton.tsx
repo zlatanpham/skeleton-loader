@@ -4,7 +4,8 @@ import {
   getStyles,
   defaultBaseColor,
   defaultHighlightColor,
-  flash,
+  CSSProperty,
+  bindProperty,
 } from './shared';
 import {
   SkeletonThemeConsumer,
@@ -21,12 +22,8 @@ const Container = styled.div<
   ${props => bindProperty('width', props.css.width)};
   ${props => bindProperty('height', props.css.height)};
   ${props => bindProperty('border-radius', props.css.radius)};
-  animation: ${flash} 1.5s ease-in-out infinite;
-  ${props => props.customStyles || ''}
   line-height: 1;
 `;
-
-type CSSProperty = string | string[];
 
 export interface SkeletonCSSProps {
   width?: CSSProperty;
@@ -51,29 +48,6 @@ export interface DefaultSkeletonProps {
   baseColor: string;
   highlightColor: string;
 }
-
-const screens = {
-  sm: '@media (min-width: 576px)',
-  md: '@media (min-width: 768px)',
-  lg: '@media (min-width: 992px)',
-  xl: '@media (min-width: 1200px)',
-};
-
-export const bindProperty = (name: string, value: CSSProperty): string => {
-  if (Array.isArray(value)) {
-    let response: string[] = [];
-    let count = 0;
-    response[count++] = `${name}: ${value[0]};`;
-    Object.keys(screens).forEach((key, index) => {
-      if (typeof value[index + 1] === 'string') {
-        response[count++] = `${screens[key]}{${name}: ${value[index + 1]};}`;
-      }
-    });
-    return response.join('');
-  } else {
-    return `${name}: ${value};`;
-  }
-};
 
 export class Skeleton extends React.Component<
   SkeletonProps & SkeletonCSSProps

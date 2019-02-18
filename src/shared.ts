@@ -38,3 +38,28 @@ export const getStyles = (
   }
   ${props.customeStyle || ''}
 `;
+
+export type CSSProperty = string | string[];
+
+const screens = {
+  sm: '@media (min-width: 576px)',
+  md: '@media (min-width: 768px)',
+  lg: '@media (min-width: 992px)',
+  xl: '@media (min-width: 1200px)',
+};
+
+export const bindProperty = (name: string, value: CSSProperty): string => {
+  if (Array.isArray(value)) {
+    let response: string[] = [];
+    let count = 0;
+    response[count++] = `${name}: ${value[0]};`;
+    Object.keys(screens).forEach((key, index) => {
+      if (typeof value[index + 1] === 'string') {
+        response[count++] = `${screens[key]}{${name}: ${value[index + 1]};}`;
+      }
+    });
+    return response.join('');
+  } else {
+    return `${name}: ${value};`;
+  }
+};
