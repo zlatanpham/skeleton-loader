@@ -32,7 +32,7 @@ export interface SkeletonCSSProps {
 }
 
 export interface SkeletonProps {
-  customStyles?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | TemplateStringsArray;
   baseColor?: string;
   highlightColor?: string;
   duration?: number;
@@ -47,7 +47,7 @@ export interface DefaultSkeletonCSSProps {
 
 export interface DefaultSkeletonProps {
   duration: number;
-  customStyles?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | TemplateStringsArray;
   baseColor: string;
   highlightColor: string;
 }
@@ -69,10 +69,10 @@ export class Skeleton extends React.Component<
       baseColor,
       highlightColor,
       duration,
-      customStyles,
+      customStyle,
       ...rest
     } = this.props;
-    const splitProps = { baseColor, highlightColor, duration, customStyles };
+    const splitProps = { baseColor, highlightColor, duration, customStyle };
     return (
       <SkeletonThemeConsumer>
         {theme => (
