@@ -1,5 +1,5 @@
 import * as React from 'react';
-import styled from 'styled-components';
+import styled, { CSSObject } from 'styled-components';
 import {
   SkeletonThemeConsumer,
   SkeletonThemeProps,
@@ -10,6 +10,7 @@ import {
   getStyles,
   CSSProperty,
   bindProperty,
+  defaultDuration,
 } from './shared';
 
 const Span = styled.span<
@@ -33,6 +34,8 @@ interface SkeletonWordsProps {
   baseColor?: string;
   highlightColor?: string;
   pattern?: number[];
+  duration?: number;
+  customStyle?: CSSObject | TemplateStringsArray;
 }
 
 interface SkeletonWordsCSSProps {
@@ -47,6 +50,8 @@ interface SkeletonWordsDefaultProps {
   baseColor: string;
   highlightColor: string;
   pattern?: number[];
+  duration: number;
+  customStyle?: CSSObject | TemplateStringsArray;
 }
 
 interface SkeletonWordsCSSDefaultProps {
@@ -68,6 +73,7 @@ export class SkeletonWords extends React.Component<
     padding: '0 20px',
     margin: '0 15px 12px 0',
     radius: '0',
+    duration: defaultDuration,
   };
 
   data = Array.isArray(this.props.pattern)
@@ -87,9 +93,12 @@ export class SkeletonWords extends React.Component<
       height,
       padding,
       margin,
+      duration,
       radius,
+      customStyle,
     } = this.props;
-    const injectedProps = { baseColor, highlightColor };
+
+    const injectedProps = { baseColor, highlightColor, duration, customStyle };
     const cssProps = { height, padding, margin, radius };
 
     return (

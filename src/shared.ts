@@ -2,6 +2,7 @@ import { keyframes, CSSObject, css } from 'styled-components';
 import { SkeletonThemeProps } from './SkeletonThemeProvider';
 export const defaultBaseColor = '#eeeeee';
 export const defaultHighlightColor = '#f5f5f5';
+export const defaultDuration = 1.5;
 
 export const flash = keyframes`
   0% {
@@ -13,31 +14,35 @@ export const flash = keyframes`
 `;
 
 interface DefaultProps {
+  duration: number;
   baseColor: string;
   highlightColor: string;
-  customeStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | TemplateStringsArray;
 }
 
 export const getStyles = (
   props: DefaultProps & { theme: SkeletonThemeProps },
-) => css`
-  background-color: ${props.theme.baseColor || props.baseColor};
-  background-image: linear-gradient(
-    90deg,
-    ${props.theme.baseColor || props.baseColor},
-    ${props.theme.hightlightColor || props.highlightColor},
-    ${props.theme.baseColor || props.baseColor}
-  );
-  background-size: 200px 100%;
-  background-repeat: no-repeat;
-  display: inline-block;
-  animation: ${flash} 1.5s ease-in-out infinite;
-  color: transparent !important;
-  > * {
+) => {
+  console.log(props);
+  return css`
+    background-color: ${props.theme.baseColor || props.baseColor};
+    background-image: linear-gradient(
+      90deg,
+      ${props.theme.baseColor || props.baseColor},
+      ${props.theme.hightlightColor || props.highlightColor},
+      ${props.theme.baseColor || props.baseColor}
+    );
+    background-size: 200px 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    animation: ${flash} ${props.duration}s ease-in-out infinite;
     color: transparent !important;
-  }
-  ${props.customeStyle || ''}
-`;
+    > * {
+      color: transparent !important;
+    }
+    ${props.customStyle || ''}
+  `;
+};
 
 export type CSSProperty = string | string[];
 

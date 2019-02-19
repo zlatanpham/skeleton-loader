@@ -4,7 +4,12 @@ import {
   SkeletonThemeConsumer,
   SkeletonThemeProps,
 } from './SkeletonThemeProvider';
-import { defaultBaseColor, defaultHighlightColor, getStyles } from './shared';
+import {
+  defaultBaseColor,
+  defaultHighlightColor,
+  defaultDuration,
+  getStyles,
+} from './shared';
 
 const TextWrapper = styled.span<
   SkeletonStringDefaultProps & { theme: SkeletonThemeProps }
@@ -13,20 +18,23 @@ const TextWrapper = styled.span<
 `;
 
 interface SkeletonStringDefaultProps {
+  duration: number;
   baseColor: string;
   highlightColor: string;
-  customeStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | TemplateStringsArray;
 }
 export interface SkeletonStringProps {
+  duration?: number;
   baseColor?: string;
   highlightColor?: string;
-  customeStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | TemplateStringsArray;
 }
 
 export class SkeletonString extends React.Component<SkeletonStringProps> {
   static defaultProps: SkeletonStringDefaultProps = {
     baseColor: defaultBaseColor,
     highlightColor: defaultHighlightColor,
+    duration: defaultDuration,
   };
 
   render() {
