@@ -1,4 +1,4 @@
-import { bindProperty } from './Skeleton';
+import { bindProperty } from './shared';
 
 describe('test bindProperty', () => {
   it('valid output', () => {
