@@ -1,4 +1,4 @@
-import doczPluginNetlify from "docz-plugin-netlify";
+import doczPluginNetlify from 'docz-plugin-netlify';
 
 // doczrc.js
 export default {
