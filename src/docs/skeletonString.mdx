@@ -1,0 +1,38 @@
+---
+name: Skeleton String
+route: /skeleton-string
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { SkeletonString } from '../SkeletonString.tsx';
+
+# SkeletonString
+
+```js
+// Import the SkeletonString component
+import { SkeletonString } from '@uxui/skeleton-loader';
+```
+
+## Usage
+
+<Playground>
+  <h2>
+    <SkeletonString>This is the title</SkeletonString>
+  </h2>
+  <p>
+    <SkeletonString>
+      Do tempor ea magna aute minim deserunt ipsum sint pariatur proident est
+      et.
+    </SkeletonString>
+  </p>
+  <p>
+    <SkeletonString>
+      Do tempor ea magna aute minim deserunt ipsum. et.
+    </SkeletonString>
+  </p>
+</Playground>
+
+## Props
+
+<PropsTable of={SkeletonString} />

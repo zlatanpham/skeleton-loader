@@ -1,0 +1,29 @@
+---
+name: Skeleton Words
+route: /skeleton-words
+menu: Components
+---
+
+import { Playground, PropsTable } from 'docz';
+import { SkeletonWords } from '../SkeletonWords.tsx';
+
+# SkeletonWords
+
+```js
+// Import the SkeletonWords component
+import { SkeletonWords } from '@uxui/skeleton-loader';
+```
+
+## Usage
+
+<Playground>
+  <SkeletonWords num={20} />
+</Playground>
+
+<Playground>
+  <SkeletonWords pattern={[12, 20, 5, 23, 6, 26, 30, 12]} radius="3px" />
+</Playground>
+
+## Props
+
+<PropsTable of={SkeletonWords} />

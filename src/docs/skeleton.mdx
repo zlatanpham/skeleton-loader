@@ -1,13 +1,18 @@
 ---
-name: Skeleton Component
+name: Skeleton
 route: /skeleton
-menu: Skeleton
+menu: Components
 ---
 
-import { Playground } from 'docz';
+import { Playground, PropsTable } from 'docz';
 import { Skeleton } from '../Skeleton.tsx';
 
-# Checkbox
+# Skeleton
+
+```js
+// Import the Skeleton component
+import { Skeleton } from '@uxui/skeleton-loader';
+```
 
 ## Usage
 
@@ -18,3 +23,7 @@ import { Skeleton } from '../Skeleton.tsx';
   <br />
   <Skeleton width="250px" height="16px" />
 </Playground>
+
+## Props
+
+<PropsTable of={Skeleton} />
