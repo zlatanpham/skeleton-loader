@@ -7,8 +7,8 @@ export interface SkeletonThemeProps {
 
 export const {
   Consumer: SkeletonThemeConsumer,
-  Provider: SkeletonThemeProvider,
+  Provider: SkeletonThemeProvider
 } = React.createContext<SkeletonThemeProps>({
   baseColor: '',
-  hightlightColor: '',
+  hightlightColor: ''
 });

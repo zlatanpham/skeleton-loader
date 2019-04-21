@@ -2,13 +2,13 @@ import * as React from 'react';
 import styled, { CSSObject } from 'styled-components';
 import {
   SkeletonThemeConsumer,
-  SkeletonThemeProps,
+  SkeletonThemeProps
 } from './SkeletonThemeProvider';
 import {
   defaultBaseColor,
   defaultHighlightColor,
   defaultDuration,
-  getStyles,
+  getStyles
 } from './shared';
 
 const TextWrapper = styled.span<
@@ -34,8 +34,12 @@ export class SkeletonString extends React.Component<SkeletonStringProps> {
   static defaultProps: SkeletonStringDefaultProps = {
     baseColor: defaultBaseColor,
     highlightColor: defaultHighlightColor,
-    duration: defaultDuration,
+    duration: defaultDuration
   };
+
+  shouldComponentUpdate() {
+    return false;
+  }
 
   render() {
     return (

@@ -21,28 +21,25 @@ interface DefaultProps {
 }
 
 export const getStyles = (
-  props: DefaultProps & { theme: SkeletonThemeProps },
-) => {
-  console.log(props);
-  return css`
-    background-color: ${props.theme.baseColor || props.baseColor};
-    background-image: linear-gradient(
-      90deg,
-      ${props.theme.baseColor || props.baseColor},
-      ${props.theme.hightlightColor || props.highlightColor},
-      ${props.theme.baseColor || props.baseColor}
-    );
-    background-size: 200px 100%;
-    background-repeat: no-repeat;
-    display: inline-block;
-    animation: ${flash} ${props.duration}s ease-in-out infinite;
+  props: DefaultProps & { theme: SkeletonThemeProps }
+) => css`
+  background-color: ${props.theme.baseColor || props.baseColor};
+  background-image: linear-gradient(
+    90deg,
+    ${props.theme.baseColor || props.baseColor},
+    ${props.theme.hightlightColor || props.highlightColor},
+    ${props.theme.baseColor || props.baseColor}
+  );
+  background-size: 200px 100%;
+  background-repeat: no-repeat;
+  display: inline-block;
+  animation: ${flash} ${props.duration}s ease-in-out infinite;
+  color: transparent !important;
+  > * {
     color: transparent !important;
-    > * {
-      color: transparent !important;
-    }
-    ${props.customStyle || ''}
-  `;
-};
+  }
+  ${props.customStyle || ''}
+`;
 
 export type CSSProperty = string | string[];
 
@@ -50,7 +47,7 @@ const screens = {
   sm: '@media (min-width: 576px)',
   md: '@media (min-width: 768px)',
   lg: '@media (min-width: 992px)',
-  xl: '@media (min-width: 1200px)',
+  xl: '@media (min-width: 1200px)'
 };
 
 export const bindProperty = (name: string, value: CSSProperty): string => {
@@ -64,7 +61,7 @@ export const bindProperty = (name: string, value: CSSProperty): string => {
       }
     });
     return response.join('');
-  } else {
-    return `${name}: ${value};`;
   }
+
+  return `${name}: ${value};`;
 };

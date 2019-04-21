@@ -5,11 +5,11 @@ import {
   defaultBaseColor,
   defaultHighlightColor,
   CSSProperty,
-  bindProperty,
+  bindProperty
 } from './shared';
 import {
   SkeletonThemeConsumer,
-  SkeletonThemeProps,
+  SkeletonThemeProps
 } from './SkeletonThemeProvider';
 
 const Container = styled.div<
@@ -61,7 +61,7 @@ export class Skeleton extends React.Component<
     height: '20px',
     duration: 1.5,
     baseColor: defaultBaseColor,
-    highlightColor: defaultHighlightColor,
+    highlightColor: defaultHighlightColor
   };
 
   render() {

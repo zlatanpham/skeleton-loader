@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled, { CSSObject } from 'styled-components';
 import {
   SkeletonThemeConsumer,
-  SkeletonThemeProps,
+  SkeletonThemeProps
 } from './SkeletonThemeProvider';
 import {
   defaultBaseColor,
@@ -10,7 +10,7 @@ import {
   getStyles,
   CSSProperty,
   bindProperty,
-  defaultDuration,
+  defaultDuration
 } from './shared';
 
 const Span = styled.span<
@@ -73,13 +73,13 @@ export class SkeletonWords extends React.Component<
     padding: '0 20px',
     margin: '0 15px 12px 0',
     radius: '0',
-    duration: defaultDuration,
+    duration: defaultDuration
   };
 
   data = Array.isArray(this.props.pattern)
     ? this.props.pattern.map(num => 'a'.repeat(num))
     : Array.from({ length: this.props.num }, () =>
-        'a'.repeat(Math.random() * 13 + 1),
+        'a'.repeat(Math.random() * 13 + 1)
       );
 
   shouldComponentUpdate() {
@@ -95,7 +95,7 @@ export class SkeletonWords extends React.Component<
       margin,
       duration,
       radius,
-      customStyle,
+      customStyle
     } = this.props;
 
     const injectedProps = { baseColor, highlightColor, duration, customStyle };
