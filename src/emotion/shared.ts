@@ -1,10 +1,11 @@
-import { keyframes, CSSObject, css } from 'styled-components';
+import { keyframes, CSSObject, SerializedStyles, css } from '@emotion/core';
+import {} from '@emotion/styled';
 import { SkeletonThemeProps } from './SkeletonThemeProvider';
 export const defaultBaseColor = '#eeeeee';
 export const defaultHighlightColor = '#f5f5f5';
 export const defaultDuration = 1.5;
 
-export const flash = keyframes`
+export const flash: SerializedStyles = keyframes`
   0% {
     background-position: -200px 0;
   }
@@ -17,7 +18,7 @@ interface DefaultProps {
   duration: number;
   baseColor: string;
   highlightColor: string;
-  customStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | SerializedStyles;
 }
 
 export const getStyles = (

@@ -1,5 +1,6 @@
 import * as React from 'react';
-import styled, { CSSObject } from 'styled-components';
+import { CSSObject, SerializedStyles } from '@emotion/core';
+import styled from '@emotion/styled';
 import {
   SkeletonThemeConsumer,
   SkeletonThemeProps
@@ -21,13 +22,13 @@ interface SkeletonStringDefaultProps {
   duration: number;
   baseColor: string;
   highlightColor: string;
-  customStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | SerializedStyles;
 }
 export interface SkeletonStringProps {
   duration?: number;
   baseColor?: string;
   highlightColor?: string;
-  customStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | SerializedStyles;
 }
 
 export class SkeletonString extends React.Component<SkeletonStringProps> {

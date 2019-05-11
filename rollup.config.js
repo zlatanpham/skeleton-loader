@@ -1,44 +1,75 @@
 import typescript from 'rollup-plugin-typescript2';
 import commonjs from 'rollup-plugin-commonjs';
-import external from 'rollup-plugin-peer-deps-external';
-// import postcss from 'rollup-plugin-postcss-modules'
+import depExternal from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
 import resolve from 'rollup-plugin-node-resolve';
 import url from 'rollup-plugin-url';
 import svgr from '@svgr/rollup';
 
-import pkg from './package.json';
+function createConfig(input, external, output, tsConfig) {
+  return {
+    input,
+    external,
+    output: [
+      {
+        file: output + '/index.js',
+        format: 'cjs',
+        exports: 'named',
+        sourcemap: true
+      },
+      {
+        file: output + '/index.es.js',
+        format: 'es',
+        exports: 'named',
+        sourcemap: true
+      }
+    ],
+    plugins: [
+      depExternal(),
+      postcss({
+        modules: true
+      }),
+      url(),
+      svgr(),
+      resolve(),
+      typescript(
+        Object.assign(
+          {
+            rollupCommonJSResolveHack: true,
+            clean: true
+          },
+          tsConfig
+        )
+      ),
+      commonjs()
+    ]
+  };
+}
 
-export default {
-  input: 'src/index.ts',
-  external: ['styled-components'],
-  globals: { 'styled-components': 'styled' },
-  output: [
-    {
-      file: pkg.main,
-      format: 'cjs',
-      exports: 'named',
-      sourcemap: true,
+const styledComponentsConfig = createConfig(
+  'src/styled-components/index.ts',
+  ['styled-components'],
+  'dist',
+  {
+    tsconfigOverride: {
+      include: ['src/styled-components']
     },
-    {
-      file: pkg.module,
-      format: 'es',
-      exports: 'named',
-      sourcemap: true,
+    include: ['src/styled-components/*'],
+    exclude: ['src/emotion/*']
+  }
+);
+
+const emotionConfig = createConfig(
+  'src/emotion/index.ts',
+  ['@emotion/core', '@emotion/styled'],
+  'emotion',
+  {
+    tsconfigOverride: {
+      include: ['src/emotion']
     },
-  ],
-  plugins: [
-    external(),
-    postcss({
-      modules: true,
-    }),
-    url(),
-    svgr(),
-    resolve(),
-    typescript({
-      rollupCommonJSResolveHack: true,
-      clean: true,
-    }),
-    commonjs(),
-  ],
-};
+    include: ['src/emotion/*'],
+    exclude: ['src/styled-components/*']
+  }
+);
+
+export default [emotionConfig, styledComponentsConfig];

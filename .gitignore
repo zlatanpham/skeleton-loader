@@ -4,6 +4,9 @@
 # dependencies
 node_modules
 
+# submodules
+/emotion/
+
 # builds
 build
 dist

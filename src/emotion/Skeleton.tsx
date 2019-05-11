@@ -1,5 +1,6 @@
 import * as React from 'react';
-import styled, { CSSObject } from 'styled-components';
+import { CSSObject, SerializedStyles } from '@emotion/core';
+import styled from '@emotion/styled';
 import {
   getStyles,
   defaultBaseColor,
@@ -15,13 +16,13 @@ import {
 const Container = styled.div<
   DefaultSkeletonProps & {
     theme: SkeletonThemeProps;
-    css: DefaultSkeletonCSSProps;
+    cssProps: DefaultSkeletonCSSProps;
   }
 >`
   ${props => getStyles(props)}
-  ${props => bindProperty('width', props.css.width)};
-  ${props => bindProperty('height', props.css.height)};
-  ${props => bindProperty('border-radius', props.css.radius)};
+  ${props => bindProperty('width', props.cssProps.width)};
+  ${props => bindProperty('height', props.cssProps.height)};
+  ${props => bindProperty('border-radius', props.cssProps.radius)};
   line-height: 1;
 `;
 
@@ -32,7 +33,7 @@ export interface SkeletonCSSProps {
 }
 
 export interface SkeletonProps {
-  customStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | SerializedStyles;
   baseColor?: string;
   highlightColor?: string;
   duration?: number;
@@ -47,7 +48,7 @@ export interface DefaultSkeletonCSSProps {
 
 export interface DefaultSkeletonProps {
   duration: number;
-  customStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | SerializedStyles;
   baseColor: string;
   highlightColor: string;
 }
@@ -64,6 +65,10 @@ export class Skeleton extends React.Component<
     highlightColor: defaultHighlightColor
   };
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     const {
       baseColor,
@@ -77,7 +82,7 @@ export class Skeleton extends React.Component<
       <SkeletonThemeConsumer>
         {theme => (
           <Container
-            css={rest as DefaultSkeletonCSSProps}
+            cssProps={rest as DefaultSkeletonCSSProps}
             {...splitProps as DefaultSkeletonProps}
             theme={theme}
           />

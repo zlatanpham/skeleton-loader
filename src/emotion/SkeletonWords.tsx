@@ -1,5 +1,6 @@
 import * as React from 'react';
-import styled, { CSSObject } from 'styled-components';
+import { CSSObject, SerializedStyles } from '@emotion/core';
+import styled from '@emotion/styled';
 import {
   SkeletonThemeConsumer,
   SkeletonThemeProps
@@ -16,14 +17,14 @@ import {
 const Span = styled.span<
   SkeletonWordsDefaultProps & {
     theme: SkeletonThemeProps;
-    css: SkeletonWordsCSSDefaultProps;
+    cssProps: SkeletonWordsCSSDefaultProps;
   }
 >`
   ${props => getStyles(props)}
-  ${props => bindProperty('padding', props.css.padding)};
-  ${props => bindProperty('height', props.css.height)};
-  ${props => bindProperty('margin', props.css.margin)};
-  ${props => bindProperty('border-radius', props.css.radius)};
+  ${props => bindProperty('padding', props.cssProps.padding)};
+  ${props => bindProperty('height', props.cssProps.height)};
+  ${props => bindProperty('margin', props.cssProps.margin)};
+  ${props => bindProperty('border-radius', props.cssProps.radius)};
   color: transparent !important;
 `;
 
@@ -35,7 +36,7 @@ interface SkeletonWordsProps {
   highlightColor?: string;
   pattern?: number[];
   duration?: number;
-  customStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | SerializedStyles;
 }
 
 interface SkeletonWordsCSSProps {
@@ -51,7 +52,7 @@ interface SkeletonWordsDefaultProps {
   highlightColor: string;
   pattern?: number[];
   duration: number;
-  customStyle?: CSSObject | TemplateStringsArray;
+  customStyle?: CSSObject | SerializedStyles;
 }
 
 interface SkeletonWordsCSSDefaultProps {
@@ -109,7 +110,7 @@ export class SkeletonWords extends React.Component<
               <Span
                 key={index}
                 theme={theme}
-                css={cssProps as SkeletonWordsCSSDefaultProps}
+                cssProps={cssProps as SkeletonWordsCSSDefaultProps}
                 {...injectedProps as SkeletonWordsDefaultProps}
               >
                 {text}

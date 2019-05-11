@@ -3,9 +3,11 @@ import React, { Component } from 'react';
 import {
   Skeleton,
   SkeletonString,
-  SkeletonWords,
-  SkeletonThemeProvider,
+  // SkeletonWords,
+  SkeletonThemeProvider
 } from 'skeleton-loader';
+
+import { SkeletonWords } from 'skeleton-loader/emotion';
 
 export default class App extends Component {
   render() {
