@@ -7,17 +7,15 @@
 ## Install
 
 ```bash
-yarn add skeleton-loader
+yarn add @uxui/skeleton-loader
 // or
-npm install --save skeleton-loader
+npm install --save @uxui/skeleton-loader
 ```
 
 ## Usage
 
 ```tsx
-import * as React from 'react';
-
-import { Skeleton } from 'skeleton-loader';
+import { Skeleton } from '@uxui/skeleton-loader';
 
 class Example extends React.Component {
   render() {
@@ -25,6 +23,18 @@ class Example extends React.Component {
   }
 }
 ```
+
+By default, `styled-components` was used to do styling and responsiveness but if you wish to have a `emotion` version, then, you have it:
+
+```tsx
+import { Skeleton } from '@uxui/skeleton-loader/emotion';
+```
+
+Examples of usage can be found [here](https://codesandbox.io/s/7ojl18nlzx).
+
+## Documentation
+
+Document can be found [here](https://skeleton-loader.netlify.com).
 
 ## License
 
