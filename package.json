@@ -1,6 +1,6 @@
 {
   "name": "@uxui/skeleton-loader",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React component helps ease the process of creating skeleton screens",
   "author": "zlatanpham <https://github.com/zlatanpham>",
   "keywords": [
@@ -67,6 +67,7 @@
     "typescript": "^2.8.3"
   },
   "files": [
-    "dist"
+    "dist",
+    "emotion"
   ]
 }
