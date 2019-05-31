@@ -5,6 +5,7 @@ import {
   defaultBaseColor,
   defaultHighlightColor,
   CSSProperty,
+  defaultDuration,
   bindProperty
 } from './shared';
 import {
@@ -61,7 +62,7 @@ export class Skeleton extends React.Component<
     width: '100%',
     radius: '0px',
     height: '20px',
-    duration: 1.5,
+    duration: defaultDuration,
     baseColor: defaultBaseColor,
     highlightColor: defaultHighlightColor
   };
