@@ -62,7 +62,9 @@ interface SkeletonWordsCSSDefaultProps {
 }
 
 export class SkeletonWords extends React.Component<
-  SkeletonWordsProps & SkeletonWordsCSSProps
+  SkeletonWordsProps &
+    SkeletonWordsCSSProps &
+    React.HTMLAttributes<HTMLDivElement>
 > {
   static defaultProps: SkeletonWordsDefaultProps &
     SkeletonWordsCSSDefaultProps = {
@@ -95,7 +97,8 @@ export class SkeletonWords extends React.Component<
       margin,
       duration,
       radius,
-      customStyle
+      customStyle,
+      ...rest
     } = this.props;
 
     const injectedProps = { baseColor, highlightColor, duration, customStyle };
@@ -104,7 +107,7 @@ export class SkeletonWords extends React.Component<
     return (
       <SkeletonThemeConsumer>
         {theme => (
-          <Container>
+          <Container {...rest}>
             {this.data.map((text, index) => (
               <Span
                 key={index}

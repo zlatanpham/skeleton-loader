@@ -17,13 +17,15 @@ const TextWrapper = styled.span<
   ${props => getStyles(props)}
 `;
 
-interface SkeletonStringDefaultProps {
+interface SkeletonStringDefaultProps
+  extends React.HTMLAttributes<HTMLSpanElement> {
   duration: number;
   baseColor: string;
   highlightColor: string;
   customStyle?: CSSObject | TemplateStringsArray;
 }
-export interface SkeletonStringProps {
+export interface SkeletonStringProps
+  extends React.HTMLAttributes<HTMLSpanElement> {
   duration?: number;
   baseColor?: string;
   highlightColor?: string;
