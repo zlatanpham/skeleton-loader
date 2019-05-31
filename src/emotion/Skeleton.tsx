@@ -72,19 +72,18 @@ export class Skeleton extends React.Component<
   }
 
   render() {
-    const { duration, width, radius, height, ...rest } = this.props;
+    const { width, radius, height, ...rest } = this.props;
     const cssProps = {
       height,
       width,
-      radius,
-      duration
-    } as DefaultSkeletonCSSProps;
+      radius
+    };
 
     return (
       <SkeletonThemeConsumer>
         {theme => (
           <Container
-            cssProps={cssProps}
+            cssProps={cssProps as DefaultSkeletonCSSProps}
             theme={theme}
             {...rest as DefaultSkeletonProps}
           />

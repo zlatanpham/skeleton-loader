@@ -101,8 +101,19 @@ export class SkeletonWords extends React.Component<
       ...rest
     } = this.props;
 
-    const injectedProps = { baseColor, highlightColor, duration, customStyle };
-    const cssProps = { height, padding, margin, radius };
+    const injectedProps = {
+      baseColor,
+      highlightColor,
+      duration,
+      customStyle
+    };
+
+    const cssProps = {
+      height,
+      padding,
+      margin,
+      radius
+    };
 
     return (
       <SkeletonThemeConsumer>

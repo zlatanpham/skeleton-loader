@@ -32,19 +32,17 @@ export interface SkeletonCSSProps {
   radius?: CSSProperty;
 }
 
-export interface SkeletonProps {
+export interface SkeletonProps extends React.HTMLAttributes<HTMLDivElement> {
   customStyle?: CSSObject | TemplateStringsArray;
   baseColor?: string;
   highlightColor?: string;
   duration?: number;
 }
 
-export interface DefaultSkeletonCSSProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface DefaultSkeletonCSSProps {
   width: CSSProperty;
   height: CSSProperty;
   radius: CSSProperty;
-  duration: number;
 }
 
 export interface DefaultSkeletonProps
@@ -72,18 +70,17 @@ export class Skeleton extends React.Component<
   }
 
   render() {
-    const { duration, width, height, radius, ...rest } = this.props;
+    const { width, height, radius, ...rest } = this.props;
     const cssProps = {
-      duration,
       height,
       width,
       radius
-    } as DefaultSkeletonCSSProps;
+    };
     return (
       <SkeletonThemeConsumer>
         {theme => (
           <Container
-            cssProps={cssProps}
+            cssProps={cssProps as DefaultSkeletonCSSProps}
             {...rest as DefaultSkeletonProps}
             theme={theme}
           />
