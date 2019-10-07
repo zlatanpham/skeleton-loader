@@ -55,40 +55,37 @@ export interface DefaultSkeletonProps
   highlightColor: string;
 }
 
-export class Skeleton extends React.Component<
-  SkeletonProps & SkeletonCSSProps
-> {
-  static defaultProps: DefaultSkeletonProps & DefaultSkeletonCSSProps = {
-    width: '100%',
-    radius: '0px',
-    height: '20px',
-    duration: defaultDuration,
-    baseColor: defaultBaseColor,
-    highlightColor: defaultHighlightColor
-  };
-
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  render() {
-    const { width, radius, height, ...rest } = this.props;
+export const Skeleton = React.memo(
+  ({
+    width = '100%',
+    radius = '0px',
+    height = '20px',
+    duration = defaultDuration,
+    baseColor = defaultBaseColor,
+    highlightColor = defaultHighlightColor,
+    ...props
+  }: SkeletonProps & SkeletonCSSProps) => {
     const cssProps = {
       height,
       width,
       radius
     };
-
     return (
       <SkeletonThemeConsumer>
         {theme => (
           <Container
             cssProps={cssProps as DefaultSkeletonCSSProps}
             theme={theme}
-            {...rest as DefaultSkeletonProps}
+            {...({
+              ...props,
+              duration,
+              baseColor,
+              highlightColor
+            } as DefaultSkeletonProps)}
           />
         )}
       </SkeletonThemeConsumer>
     );
-  }
-}
+  },
+  () => true
+);
