@@ -33,29 +33,28 @@ export interface SkeletonStringProps
   customStyle?: CSSObject | SerializedStyles;
 }
 
-export class SkeletonString extends React.Component<SkeletonStringProps> {
-  static defaultProps: SkeletonStringDefaultProps = {
-    baseColor: defaultBaseColor,
-    highlightColor: defaultHighlightColor,
-    duration: defaultDuration
-  };
-
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  render() {
-    return (
-      <SkeletonThemeConsumer>
-        {theme => (
-          <TextWrapper
-            {...this.props as SkeletonStringDefaultProps}
-            theme={theme}
-          >
-            {this.props.children}
-          </TextWrapper>
-        )}
-      </SkeletonThemeConsumer>
-    );
-  }
-}
+export const SkeletonString: React.FC<SkeletonStringProps> = ({
+  baseColor = defaultBaseColor,
+  highlightColor = defaultHighlightColor,
+  duration = defaultDuration,
+  children,
+  ...props
+}) => {
+  return (
+    <SkeletonThemeConsumer>
+      {theme => (
+        <TextWrapper
+          {...({
+            ...props,
+            baseColor,
+            highlightColor,
+            duration
+          } as SkeletonStringDefaultProps)}
+          theme={theme}
+        >
+          {children}
+        </TextWrapper>
+      )}
+    </SkeletonThemeConsumer>
+  );
+};

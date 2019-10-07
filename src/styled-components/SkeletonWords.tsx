@@ -61,45 +61,25 @@ interface SkeletonWordsCSSDefaultProps {
   radius: CSSProperty;
 }
 
-export class SkeletonWords extends React.Component<
-  SkeletonWordsProps &
+export const SkeletonWords = React.memo(
+  ({
+    num = 3,
+    baseColor = defaultBaseColor,
+    highlightColor = defaultHighlightColor,
+    height = '15px',
+    padding = '0 20px',
+    margin = '0 15px 12px 0',
+    radius = '0',
+    duration = defaultDuration,
+    ...props
+  }: SkeletonWordsProps &
     SkeletonWordsCSSProps &
-    React.HTMLAttributes<HTMLDivElement>
-> {
-  static defaultProps: SkeletonWordsDefaultProps &
-    SkeletonWordsCSSDefaultProps = {
-    num: 3,
-    baseColor: defaultBaseColor,
-    highlightColor: defaultHighlightColor,
-    height: '15px',
-    padding: '0 20px',
-    margin: '0 15px 12px 0',
-    radius: '0',
-    duration: defaultDuration
-  };
+    React.HTMLAttributes<HTMLDivElement>) => {
+    const data = Array.isArray(props.pattern)
+      ? props.pattern.map(num => 'a'.repeat(num))
+      : Array.from({ length: num }, () => 'a'.repeat(Math.random() * 13 + 1));
 
-  data = Array.isArray(this.props.pattern)
-    ? this.props.pattern.map(num => 'a'.repeat(num))
-    : Array.from({ length: this.props.num }, () =>
-        'a'.repeat(Math.random() * 13 + 1)
-      );
-
-  shouldComponentUpdate() {
-    return false;
-  }
-
-  render() {
-    const {
-      baseColor,
-      highlightColor,
-      height,
-      padding,
-      margin,
-      duration,
-      radius,
-      customStyle,
-      ...rest
-    } = this.props;
+    const { customStyle, ...rest } = props;
 
     const injectedProps = {
       baseColor,
@@ -119,12 +99,12 @@ export class SkeletonWords extends React.Component<
       <SkeletonThemeConsumer>
         {theme => (
           <Container {...rest}>
-            {this.data.map((text, index) => (
+            {data.map((text, index) => (
               <Span
                 key={index}
                 theme={theme}
                 cssProps={cssProps as SkeletonWordsCSSDefaultProps}
-                {...injectedProps as SkeletonWordsDefaultProps}
+                {...(injectedProps as SkeletonWordsDefaultProps)}
               >
                 {text}
               </Span>
@@ -133,5 +113,6 @@ export class SkeletonWords extends React.Component<
         )}
       </SkeletonThemeConsumer>
     );
-  }
-}
+  },
+  () => true
+);
