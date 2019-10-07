@@ -3,7 +3,7 @@ node_js:
   - 9
   - 8
 
-  script:
+script:
   - npm run build
   - npm run test:ci
 
