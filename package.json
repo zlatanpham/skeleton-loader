@@ -33,14 +33,17 @@
   },
   "dependencies": {},
   "peerDependencies": {
+    "prop-types": "^15.5.4",
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0",
+    "@emotion/core": ">= 10",
+    "@emotion/styled": ">= 10",
+    "styled-components": ">= 4"
+  },
+  "devDependencies": {
     "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
     "styled-components": "^5.2.0",
-    "prop-types": "^15.5.4",
-    "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0"
-  },
-  "devDependencies": {
     "@svgr/rollup": "^2.4.1",
     "@testing-library/react": "^11.0.4",
     "@types/jest": "^26.0.14",
