@@ -6,9 +6,8 @@ import serializer from 'jest-emotion';
 expect.addSnapshotSerializer(serializer);
 
 describe('<Skeleton />', () => {
-  const { container } = render(<Skeleton width="200px" />);
-
   it('Should match snapshot', () => {
+    const { container } = render(<Skeleton width="200px" />);
     expect(container.firstChild).toMatchSnapshot();
   });
 });
